@@ -14051,6 +14051,10 @@ Vue.filter('upText', function (text) {
     return text.charAt(0).toUpperCase() + text.slice(1);
 });
 
+Vue.filter('myDate', function (created) {
+    return __WEBPACK_IMPORTED_MODULE_0_moment___default()(created).format('MMMM Do YYYY');
+});
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -51421,7 +51425,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(_vm._f("upText")(user.type)))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(user.created_at))]),
+                    _c("td", [
+                      _vm._v(_vm._s(_vm._f("myDate")(user.created_at)))
+                    ]),
                     _vm._v(" "),
                     _vm._m(2, true)
                   ])
