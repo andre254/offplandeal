@@ -130,11 +130,23 @@
                 axios.get("api/user").then(({ data }) => (this.users = data.data));
             },
             createUser() {
+                this.$Progress.start();
                 this.form.post('api/user');
+
+                $('#addNew').modal('hide')
+
+                toast({
+                    type: 'success',
+                    title: 'User created successfully'
+                    })
+
+                this.$Progress.finish();
             }
         },
         created() {
             this.loadUsers();
+            //this is for refreshing the page after every 3 secs
+            setInterval(this.loadUsers(), 3000)
         }
     }
 </script>
