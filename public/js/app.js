@@ -30468,6 +30468,9 @@ Vue.filter('myDate', function (created) {
     return __WEBPACK_IMPORTED_MODULE_0_moment___default()(created).format('MMMM Do YYYY');
 });
 
+// update after every change
+window.Fire = new Vue();
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -71847,27 +71850,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         createUser: function createUser() {
+            var _this2 = this;
+
             this.$Progress.start();
-            this.form.post('api/user');
 
-            $('#addNew').modal('hide');
+            this.form.post('api/user').then(function () {
+                Fire.$emit('AfterCreate');
+                $('#addNew').modal('hide');
 
-            toast({
-                type: 'success',
-                title: 'User created successfully'
-            });
+                toast({
+                    type: 'success',
+                    title: 'User created successfully'
+                });
 
-            this.$Progress.finish();
+                _this2.$Progress.finish();
+            }).catch(function () {});
         }
     },
     created: function created() {
-        var _this2 = this;
+        var _this3 = this;
 
         this.loadUsers();
         //this is for refreshing the page after every 3 secs
-        setInterval(function () {
-            return _this2.loadUsers();
-        }, 3000);
+        // setInterval( () => this.loadUsers(), 3000);
+        Fire.$on('AfterCreate', function () {
+            _this3.loadUsers();
+        });
     }
 });
 

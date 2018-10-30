@@ -72,6 +72,8 @@ Vue.filter('myDate', function(created) {
     return moment(created).format('MMMM Do YYYY');
 })
 
+// update after every change
+window.Fire = new Vue();
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

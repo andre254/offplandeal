@@ -129,10 +129,13 @@
             loadUsers() {
                 axios.get("api/user").then(({ data }) => (this.users = data.data));
             },
+
             createUser() {
                 this.$Progress.start();
-                this.form.post('api/user');
 
+                this.form.post('api/user')
+                .then(() => {
+                Fire.$emit('AfterCreate');
                 $('#addNew').modal('hide')
 
                 toast({
@@ -141,12 +144,20 @@
                     })
 
                 this.$Progress.finish();
+
+                })
+                .catch(() => {
+
+                })
             }
         },
         created() {
             this.loadUsers();
             //this is for refreshing the page after every 3 secs
-            setInterval( () => this.loadUsers(), 3000);
+                // setInterval( () => this.loadUsers(), 3000);
+            Fire.$on('AfterCreate', () => {
+                this.loadUsers();
+            });
         }
     }
 </script>
