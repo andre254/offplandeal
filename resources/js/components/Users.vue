@@ -146,7 +146,7 @@
         created() {
             this.loadUsers();
             //this is for refreshing the page after every 3 secs
-            setInterval(this.loadUsers(), 3000)
+            setInterval( () => this.loadUsers(), 3000);
         }
     }
 </script>
