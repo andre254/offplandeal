@@ -33,6 +33,7 @@ Vue.component(AlertError.name, AlertError)
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+
 //start vue progress bar
 import VueProgressBar from 'vue-progressbar'
 
@@ -59,7 +60,7 @@ let routes = [
 ]
 
 const router = new VueRouter ({
-    mode: 'history',
+   mode: 'history',
     routes //short for routes
 })
 
