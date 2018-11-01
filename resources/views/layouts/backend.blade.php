@@ -98,19 +98,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </router-link>
           </li>
 
-          <li class="nav-item">
-            <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();" class="nav-link">
-              <i class="nav-icon fas fa-power-off red"></i>
-              <p>
-                Logout
-              </p>
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-          </li>
-
           <li class="nav-item has-treeview">
             <aside href="#" class="nav-link">
               <i class="nav-icon fas fa-users-cog green"></i>
@@ -142,6 +129,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();" class="nav-link">
+              <i class="nav-icon fas fa-power-off red"></i>
+              <p>
+                Logout
+              </p>
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
           </li>
         </ul>
       </nav>
