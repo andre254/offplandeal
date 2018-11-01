@@ -56,6 +56,10 @@ let routes = [
     {
         path: '/users',
         component: require('./components/Users.vue')
+    },
+    {
+        path: '/developer',
+        component: require('./components/Developer.vue')
     }
 ]
 
@@ -83,6 +87,21 @@ window.Fire = new Vue();
  */
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
+Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue')
+);
+
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue')
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue')
+);
 
 const app = new Vue({
     el: '#app',

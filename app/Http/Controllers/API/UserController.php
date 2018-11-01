@@ -14,6 +14,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     public function index()
     {
         return User::latest()->paginate(10);
@@ -99,5 +105,9 @@ class UserController extends Controller
 
         // redirect
         return ['message' => 'User Deleted'];
+    }
+
+    public function profile() {
+        return Auth('api')->user();
     }
 }
