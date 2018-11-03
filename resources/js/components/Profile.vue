@@ -90,25 +90,25 @@
                     <div class="active tab-pane" id="settings">
                         <form class="form-horizontal">
                         <div class="form-group">
-                            <label for="inputName" class="col-sm-2 control-label">Name</label>
+                            <label for="inputName" class="col-sm-2 control-label">Full Name</label>
 
                             <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputName" placeholder="Name">
+                            <input type="text" v-model="form.name" class="form-control" name="name" id="inputName" placeholder="Name">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputEmail" class="col-sm-2 control-label">Email</label>
 
                             <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                            <input type="email" v-model="form.email" name="email" class="form-control" id="inputEmail" placeholder="Email">
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
+                            <label for="inputExperience" class="col-sm-2 control-label">Biography</label>
 
                             <div class="col-sm-10">
-                            <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                            <textarea class="form-control" v-model="form.bio" name="bio" id="inputExperience" placeholder="Experience"></textarea>
                             </div>
                         </div>
 
@@ -146,7 +146,15 @@
     export default {
         data() {
             return {
-                form: []
+                form: new Form({
+                    id : '',
+                    name : '',
+                    email : '',
+                    password : '',
+                    type : '',
+                    bio : '',
+                    photo : '',
+                })
             }
         },
 
@@ -155,7 +163,8 @@
         },
 
         created() {
-
+            axios.get("api/profile")
+            .then(({ data}) => (this.form.fill(data)));
         }
     }
 </script>
