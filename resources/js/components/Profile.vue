@@ -166,12 +166,13 @@
             updateProfile(e) {
                 //console.log('uploading..') this is an event listener to see if the function will run
                 let file = e.target.files[0];
-                console.log(file);
+                // console.log(file);
                 let reader = new FileReader();
-                reader.onloadend = function() {
+                reader.onloadend = (file) => {
                     // console.log('RESULT', reader.result)
+                    this.form.photo = reader.result;
                 }
-                console.log(reader.readAsDataURL(file));
+               console.log(reader.readAsDataURL(file))
             }
         },
 
