@@ -122,7 +122,7 @@
                         
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-danger">Submit</button>
+                            <button @click.prevent="updateInfo" type="submit" class="btn btn-danger">Submit</button>
                             </div>
                         </div>
                         </form>
@@ -163,16 +163,38 @@
         },
 
         methods: {
+            updateInfo() {
+            this.$Progress.start(); //progress bar
+               this.form.put('api/profile')
+               .then(() => {
+
+                   this.$Progress.finish();
+               })
+               .catch(() => {
+
+                   this.$Progress.fail();
+               });
+            },
+
             updateProfile(e) {
                 //console.log('uploading..') this is an event listener to see if the function will run
                 let file = e.target.files[0];
                 // console.log(file);
                 let reader = new FileReader();
-                reader.onloadend = (file) => {
+                if (file['size'] < 2111775) {
+                    reader.onloadend = (file) => {
                     // console.log('RESULT', reader.result)
                     this.form.photo = reader.result;
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Your file size should be less than 2MB!',
+                    })
                 }
-               console.log(reader.readAsDataURL(file))
+                
             }
         },
 
