@@ -12,13 +12,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>Offplandeal.com | @yield('title')</title>
+  <title>offplandeal.com | @yield('title')</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.css')}}">
-
+    
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper" id="app">
@@ -186,7 +184,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-<script src="{{ asset('js/app.js') }}" defer></script>
+<script type="text/javascript" src="{{ asset('js/app.js') }}" defer></script>
 
 {{-- <script src="{{ asset('js/jquery.dataTables.js') }}" defer></script>
 <script src="{{ asset('js/dataTables.bootstrap4.js') }}"></script> --}}

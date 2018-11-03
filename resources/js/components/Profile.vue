@@ -115,7 +115,7 @@
                         <div class="form-group">
                             <label for="photo" class="col-sm-2 control-label">Profile Photo</label>
                             <div class="col-sm-12">
-                                <input type="file"  name="photo" class="form-input">
+                                <input type="file" @change="updateProfile" name="photo" class="form-input">
                             </div>
                         </div>
 
@@ -160,6 +160,19 @@
 
         mounted() {
             console.log('Component mounted.')
+        },
+
+        methods: {
+            updateProfile(e) {
+                //console.log('uploading..') this is an event listener to see if the function will run
+                let file = e.target.files[0];
+                console.log(file);
+                let reader = new FileReader();
+                reader.onloadend = function() {
+                    // console.log('RESULT', reader.result)
+                }
+                console.log(reader.readAsDataURL(file));
+            }
         },
 
         created() {
