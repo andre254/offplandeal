@@ -119,6 +119,14 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="inputEmail" class="col-sm-2 control-label">Password*</label>
+
+                            <div class="col-sm-10">
+                            <input type="text" v-model="form.password" name="password" class="form-control" id="inputEmail" placeholder="*leave empty if not changing">
+                            </div>
+                        </div>
+
                         
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">

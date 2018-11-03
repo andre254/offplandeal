@@ -1,9 +1,6 @@
 
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -56,9 +53,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
   <a href="{{ route('home')}}" class="brand-link">
-    <img src="{{ asset('img/rocket (1).png')}}" alt="offplandeal.com Logo" class="brand-image img-circle elevation-3"
+    <img class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Offplandeal.com</span>
+      <span class="brand-text font-weight-light">offplandeal.com</span>
     </a>
 
     <!-- Sidebar -->
