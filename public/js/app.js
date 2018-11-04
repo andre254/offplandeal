@@ -72130,22 +72130,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -72167,15 +72151,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
+        getProfilePhoto: function getProfilePhoto() {
+            var photo = this.form.photo.length > 100 ? this.form.photo : "img/profile/" + this.form.photo;
+            return photo;
+            //return "img/profile/"+ this.form.photo;
+        },
         updateInfo: function updateInfo() {
             var _this = this;
 
             this.$Progress.start(); //progress bar
             this.form.put('api/profile').then(function () {
-
+                Fire.$emit("AfterCreate");
+                //success
+                swal('Updated!', 'Your information has been updated.', 'success');
                 _this.$Progress.finish();
             }).catch(function () {
-
                 _this.$Progress.fail();
             });
         },
@@ -72199,6 +72189,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     text: 'Your file size should be less than 2MB!'
                 });
             }
+            Fire.$emit('AfterCreate');
         }
     },
 
@@ -72222,11 +72213,59 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "col-md-3 mt-3" }, [
+        _c("div", { staticClass: "card card-primary card-outline" }, [
+          _c("div", { staticClass: "card-body box-profile" }, [
+            _c("div", { staticClass: "text-center" }, [
+              _c("img", {
+                staticClass: "profile-user-img img-fluid img-circle",
+                attrs: { src: _vm.getProfilePhoto(), alt: "user avatar" }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "h3",
+              {
+                staticClass: "profile-username text-center",
+                attrs: { src: _vm.getProfilePhoto() }
+              },
+              [_vm._v(_vm._s(this.form.name))]
+            ),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-muted text-center" }, [
+              _vm._v(_vm._s(_vm._f("upText")(this.form.type)))
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "card card-primary" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-muted" }, [
+              _vm._v(
+                "\n              " + _vm._s(this.form.bio) + "\n            "
+              )
+            ]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _vm._m(2),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-muted" }, [
+              _vm._v(_vm._s(this.form.email))
+            ]),
+            _vm._v(" "),
+            _c("hr")
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-9 mt-3" }, [
         _c("div", { staticClass: "card card-primary card-outline" }, [
-          _vm._m(1),
+          _vm._m(3),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "tab-content" }, [
@@ -72481,7 +72520,10 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Submit")]
+                          [
+                            _vm._v("Update "),
+                            _c("i", { staticClass: "fas fa-user-plus fa-fw" })
+                          ]
                         )
                       ])
                     ])
@@ -72500,89 +72542,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3 mt-3" }, [
-      _c("div", { staticClass: "card card-primary card-outline" }, [
-        _c("div", { staticClass: "card-body box-profile" }, [
-          _c("div", { staticClass: "text-center" }, [
-            _c("img", {
-              staticClass: "profile-user-img img-fluid img-circle",
-              attrs: { src: "#", alt: "User profile picture" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("h3", { staticClass: "profile-username text-center" }, [
-            _vm._v("Nina Mcintire")
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-muted text-center" }, [
-            _vm._v("Software Engineer")
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card card-primary" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _c("h3", { staticClass: "card-title" }, [_vm._v("About Me")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("strong", [
-            _c("i", { staticClass: "fa fa-book mr-1" }),
-            _vm._v(" Education")
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-muted" }, [
-            _vm._v(
-              "\n              B.S. in Computer Science from the University of Tennessee at Knoxville\n            "
-            )
-          ]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c("strong", [
-            _c("i", { staticClass: "fa fa-map-marker mr-1" }),
-            _vm._v(" Location")
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-muted" }, [
-            _vm._v("Malibu, California")
-          ]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c("strong", [
-            _c("i", { staticClass: "fa fa-pencil mr-1" }),
-            _vm._v(" Skills")
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-muted" }, [
-            _c("span", { staticClass: "tag tag-danger" }, [
-              _vm._v("UI Design")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag tag-success" }, [_vm._v("Coding")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag tag-info" }, [_vm._v("Javascript")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag tag-warning" }, [_vm._v("PHP")]),
-            _vm._v(" "),
-            _c("span", { staticClass: "tag tag-primary" }, [_vm._v("Node.js")])
-          ]),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _c("strong", [
-            _c("i", { staticClass: "fa fa-file-text-o mr-1" }),
-            _vm._v(" Notes")
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-muted" }, [
-            _vm._v(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque."
-            )
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [_vm._v("About Me")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("strong", [
+      _c("i", { staticClass: "fa fa-book mr-1" }),
+      _vm._v(" Biography")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("strong", [
+      _c("i", { staticClass: "fa fa-mail mr-1" }),
+      _vm._v(" Email")
     ])
   },
   function() {

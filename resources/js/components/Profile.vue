@@ -18,15 +18,14 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="#"
-                       alt="User profile picture">
+                       :src="getProfilePhoto()"
+                       alt="user avatar">
                 </div>
 
-                <h3 class="profile-username text-center">Nina Mcintire</h3>
+                <h3 class="profile-username text-center" :src="getProfilePhoto()">{{ this.form.name }}</h3>
 
-                <p class="text-muted text-center">Software Engineer</p>
+                <p class="text-muted text-center">{{ this.form.type | upText }}</p>
 
-                <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
               </div>
               <!-- /.card-body -->
             </div>
@@ -38,35 +37,20 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <strong><i class="fa fa-book mr-1"></i> Education</strong>
+                <strong><i class="fa fa-book mr-1"></i> Biography</strong>
 
                 <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
+                  {{ this.form.bio }}
                 </p>
 
                 <hr>
 
-                <strong><i class="fa fa-map-marker mr-1"></i> Location</strong>
+                <strong><i class="fa fa-mail mr-1"></i> Email</strong>
 
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fa fa-pencil mr-1"></i> Skills</strong>
-
-                <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
-                  <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
-                </p>
+                <p class="text-muted">{{ this.form.email }}</p>
 
                 <hr>
 
-                <strong><i class="fa fa-file-text-o mr-1"></i> Notes</strong>
-
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
               </div>
               <!-- /.card-body -->
             </div>
@@ -134,7 +118,7 @@
                         
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                            <button @click.prevent="updateInfo" type="submit" class="btn btn-danger">Submit</button>
+                            <button @click.prevent="updateInfo" type="submit" class="btn btn-danger">Update <i class="fas fa-user-plus fa-fw"></i></button>
                             </div>
                         </div>
                         </form>
@@ -175,15 +159,29 @@
         },
 
         methods: {
+
+            getProfilePhoto() {
+                let photo = (this.form.photo.length > 100) ? this.form.photo : "img/profile/"+ this.form.photo ;
+                return photo;
+                //return "img/profile/"+ this.form.photo;
+            },
+
             updateInfo() {
             this.$Progress.start(); //progress bar
                this.form.put('api/profile')
                .then(() => {
-
-                   this.$Progress.finish();
+                   Fire.$emit("AfterCreate");
+                   //success
+                    swal(
+                        'Updated!',
+                        'Your information has been updated.',
+                        'success'
+                        )
+                        this.$Progress.finish();
+                       
                })
+          
                .catch(() => {
-
                    this.$Progress.fail();
                });
             },
@@ -206,6 +204,7 @@
                         text: 'Your file size should be less than 2MB!',
                     })
                 }
+                Fire.$emit('AfterCreate'); 
                 
             }
         },
