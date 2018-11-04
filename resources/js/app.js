@@ -60,6 +60,10 @@ let routes = [
     {
         path: '/developer',
         component: require('./components/Developer.vue')
+    },
+    {
+        path: '/blog',
+        component: require('./components/Blog.vue')
     }
 ]
 

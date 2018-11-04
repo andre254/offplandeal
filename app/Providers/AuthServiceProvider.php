@@ -30,19 +30,19 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies($gate);
 
         $gate->define('isAdmin', function($user){
-            return $user->user_type == 'admin';
+            return $user->type == 'admin';
         });
 
         $gate->define('isManager', function($user){
-            return $user->user_type == 'manager';
+            return $user->type == 'manager';
         });
 
         $gate->define('isBlogger', function($user){
-            return $user->user_type == 'blogger';
+            return $user->type == 'blogger';
         });
 
         $gate->define('isUser', function($user){
-            return $user->user_type == 'user';
+            return $user->type == 'user';
         });
     }
 }
