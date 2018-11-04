@@ -90,40 +90,44 @@
                     <div class="active tab-pane" id="settings">
                         <form class="form-horizontal">
                         <div class="form-group">
-                            <label for="inputName" class="col-sm-2 control-label">Full Name</label>
+                            <label for="inputName" class="col-sm-12 control-label">Full Name</label>
 
                             <div class="col-sm-10">
-                            <input type="text" v-model="form.name" class="form-control" name="name" id="inputName" placeholder="Name">
+                            <input type="text" v-model="form.name" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }" name="name" id="inputName" placeholder="Name">
+                            <has-error :form="form" field="name"></has-error>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                            <label for="inputEmail" class="col-sm-12 control-label">Email</label>
 
                             <div class="col-sm-10">
-                            <input type="email" v-model="form.email" name="email" class="form-control" id="inputEmail" placeholder="Email">
+                            <input type="email" v-model="form.email" name="email" class="form-control" :class="{ 'is-invalid': form.errors.has('email') }" id="inputEmail" placeholder="Email">
+                            <has-error :form="form" field="email"></has-error>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label for="inputExperience" class="col-sm-2 control-label">Biography</label>
+                            <label for="inputExperience" class="col-sm-12 control-label">Biography</label>
 
                             <div class="col-sm-10">
-                            <textarea class="form-control" v-model="form.bio" name="bio" id="inputExperience" placeholder="Experience"></textarea>
+                            <textarea class="form-control" v-model="form.bio" name="bio" :class="{ 'is-invalid': form.errors.has('bio') }" id="inputExperience" placeholder="Experience"></textarea>
+                            <has-error :form="form" field="bio"></has-error>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="photo" class="col-sm-2 control-label">Profile Photo</label>
+                            <label for="photo" class="col-sm-12 control-label">Profile Photo</label>
                             <div class="col-sm-12">
                                 <input type="file" @change="updateProfile" name="photo" class="form-input">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="inputEmail" class="col-sm-2 control-label">Password*</label>
+                            <label for="inputEmail" class="col-sm-12 control-label">Password *(leave it blank if you don't want to change)</label>
 
                             <div class="col-sm-10">
-                            <input type="text" v-model="form.password" name="password" class="form-control" id="inputEmail" placeholder="*leave empty if not changing">
+                            <input type="text" v-model="form.password" name="password" class="form-control" :class="{ 'is-invalid': form.errors.has('password') }" id="inputEmail" placeholder="password">
+                            <has-error :form="form" field="password"></has-error>
                             </div>
                         </div>
 
