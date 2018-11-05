@@ -13,48 +13,48 @@
         <div class="row">
             <!-- start leftside -->
             <div class="col-md-3 mt-3">
-            <!-- Profile Image -->
-            <div class="card card-primary card-outline">
-              <div class="card-body box-profile">
-                <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle"
-                       :src="getProfilePhoto()"
-                       alt="user avatar">
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                <div class="card-body box-profile">
+                    <div class="text-center">
+                    <img class="profile-user-img img-fluid img-circle"
+                        :src="getProfilePhoto()"
+                        alt="user avatar">
+                    </div>
+
+                    <h3 class="profile-username text-center" >{{ this.form.name }}</h3>
+
+                    <p class="text-muted text-center">{{ this.form.type | upText }}</p>
+
                 </div>
+                <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                <!-- About Me Box -->
+                <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">About Me</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <strong><i class="fa fa-book mr-1"></i> Biography</strong>
 
-                <h3 class="profile-username text-center" :src="getProfilePhoto()">{{ this.form.name }}</h3>
+                    <p class="text-muted">
+                    {{ this.form.bio }}
+                    </p>
 
-                <p class="text-muted text-center">{{ this.form.type | upText }}</p>
+                    <hr>
 
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-            <!-- About Me Box -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">About Me</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <strong><i class="fa fa-book mr-1"></i> Biography</strong>
+                    <strong><i class="fa fa-mail mr-1"></i> Email</strong>
 
-                <p class="text-muted">
-                  {{ this.form.bio }}
-                </p>
+                    <p class="text-muted">{{ this.form.email }}</p>
 
-                <hr>
+                    <hr>
 
-                <strong><i class="fa fa-mail mr-1"></i> Email</strong>
-
-                <p class="text-muted">{{ this.form.email }}</p>
-
-                <hr>
-
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+                </div>
+                <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
             <!-- end leftside -->
             </div>
 
@@ -132,8 +132,6 @@
             </div>
             <!-- /.col -->
             <!-- start rightside -->
-
-
         </div>
     </div>
 </template>

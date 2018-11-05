@@ -33,6 +33,9 @@ Vue.component(AlertError.name, AlertError)
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+// import vue modules
+import tinymce from '@tinymce/tinymce-vue'
+Vue.component('tinymce', tinymce)
 
 //start vue progress bar
 import VueProgressBar from 'vue-progressbar'
@@ -64,7 +67,11 @@ let routes = [
     {
         path: '/blog',
         component: require('./components/Blog.vue')
-    }
+    },
+    {
+        path: '/blog/new',
+        component: require('./components/BlogNew.vue')
+    },
 ]
 
 const router = new VueRouter ({

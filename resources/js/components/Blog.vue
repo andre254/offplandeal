@@ -9,7 +9,7 @@
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
                         
-                        // content goes here
+                        <!-- content goes here -->
 
                     </div>
                     <!-- /.card-body -->

@@ -63,7 +63,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-        <img src="img/profile/{{Auth::user()->photo}}" class="img-circle elevation-2" alt="User Image">
+        {{-- <img src="img/profile/{{Auth::user()->photo}}" class="img-circle elevation-2" alt="User Image"> --}}
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -129,7 +129,7 @@
 
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <router-link to="/blog" class="nav-link">
+                <router-link to="/blog/new" class="nav-link">
                   <i class="fas fa-pencil-alt purple"></i>
                   <p>Add Blog</p>
                 </router-link>
