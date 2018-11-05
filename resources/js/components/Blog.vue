@@ -5,15 +5,11 @@
                 <div class="card card-primary card-outline">
                     <div class="card-header">
                     <h3 class="card-title">Blog List</h3>
-                    <div class="card-tools">
-                        <button class="btn btn-success" @click= "newModal">Add New <i class="fas fa-user-plus fa-fw"></i></button>
-                    </div>
-                    
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
                         
-
+                        // content goes here
 
                     </div>
                     <!-- /.card-body -->
