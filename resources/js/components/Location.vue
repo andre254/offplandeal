@@ -62,13 +62,15 @@
                     </div>
                 </div>
 
+                
+
                 <div class="modal-body"> 
                     <div class="form-group">
                         <label>Slug</label>
-                        <input v-model="form.slug" type="text" name="slug"
-                            placeholder="downtown-dubai"
-                            class="form-control" :class="{ 'is-invalid': form.errors.has('slug') }">
-                             <p id="slug"><span>{{ slug }}</span></p>
+                        <input type="text" name="slug" :value="form.name | slugify"
+                            placeholder="downtown-dubai" 
+                            class="form-control" :class="{ 'is-invalid': form.errors.has('slug') }" readonly>
+                        <input v-model="form.slug" type="hidden" name="slug">
                         <has-error :form="form" field="slug"></has-error>
                     </div>
                 </div>

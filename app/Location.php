@@ -10,6 +10,6 @@ class Location extends Model
     use HasApiTokens;
 
     protected $fillable = [
-        'name'
+        'name','description','slug'
     ];
 }

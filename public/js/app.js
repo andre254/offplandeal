@@ -30948,6 +30948,42 @@ Vue.filter('myDate', function (created) {
     return __WEBPACK_IMPORTED_MODULE_0_moment___default()(created).format('MMMM Do YYYY');
 });
 
+Vue.filter('slugify', function (value) {
+    value = value.replace(/^\s+|\s+$/g, ''); // trim
+    value = value.toLowerCase();
+
+    // remove accents, swap ñ for n, etc
+    var from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
+    var to = "aaaaaeeeeeiiiiooooouuuunc------";
+    for (var i = 0, l = from.length; i < l; i++) {
+        value = value.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    value = value.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+    .replace(/\s+/g, '-') // collapse whitespace and replace by -
+    .replace(/-+/g, '-'); // collapse dashes
+
+    return value;
+});
+
+var slug = function slug(str) {
+    str = str.replace(/^\s+|\s+$/g, ''); // trim
+    str = str.toLowerCase();
+
+    // remove accents, swap ñ for n, etc
+    var from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;";
+    var to = "aaaaaeeeeeiiiiooooouuuunc------";
+    for (var i = 0, l = from.length; i < l; i++) {
+        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+    }
+
+    str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+    .replace(/\s+/g, '-') // collapse whitespace and replace by -
+    .replace(/-+/g, '-'); // collapse dashes
+
+    return str;
+};
+
 // update after every change
 window.Fire = new Vue();
 
@@ -73884,6 +73920,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -74188,6 +74226,18 @@ var render = function() {
                         _c("label", [_vm._v("Slug")]),
                         _vm._v(" "),
                         _c("input", {
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("slug") },
+                          attrs: {
+                            type: "text",
+                            name: "slug",
+                            placeholder: "downtown-dubai",
+                            readonly: ""
+                          },
+                          domProps: { value: _vm._f("slugify")(_vm.form.name) }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
                           directives: [
                             {
                               name: "model",
@@ -74196,13 +74246,7 @@ var render = function() {
                               expression: "form.slug"
                             }
                           ],
-                          staticClass: "form-control",
-                          class: { "is-invalid": _vm.form.errors.has("slug") },
-                          attrs: {
-                            type: "text",
-                            name: "slug",
-                            placeholder: "downtown-dubai"
-                          },
+                          attrs: { type: "hidden", name: "slug" },
                           domProps: { value: _vm.form.slug },
                           on: {
                             input: function($event) {
@@ -74213,10 +74257,6 @@ var render = function() {
                             }
                           }
                         }),
-                        _vm._v(" "),
-                        _c("p", { attrs: { id: "slug" } }, [
-                          _c("span", [_vm._v(_vm._s(_vm.slug))])
-                        ]),
                         _vm._v(" "),
                         _c("has-error", {
                           attrs: { form: _vm.form, field: "slug" }
