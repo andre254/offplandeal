@@ -65,20 +65,19 @@
                 <div class="modal-body"> 
                     <div class="form-group">
                         <label>Slug</label>
-                        <input v-model="form.name" type="text" name="slug"
-                            placeholder="Downtown Dubai"
+                        <input v-model="form.slug" type="text" name="slug"
+                            placeholder="downtown-dubai"
                             class="form-control" :class="{ 'is-invalid': form.errors.has('slug') }">
+                             <p id="slug"><span>{{ slug }}</span></p>
                         <has-error :form="form" field="slug"></has-error>
                     </div>
                 </div>
 
-                <div class="modal-body"> 
-                    <div class="form-group">
-                        <label>Description</label>
-                        <input v-model="form.description" type="text" name="description"
-                            placeholder="Downtown Dubai"
-                            class="form-control" :class="{ 'is-invalid': form.errors.has('description') }">
-                        <has-error :form="form" field="description"></has-error>
+                <div class="form-group">
+                    <label for="inputExperience" class="col-sm-12 control-label">Description</label>
+                    <div class="col-sm-12">
+                    <textarea class="form-control" v-model="form.description" name="description" :class="{ 'is-invalid': form.errors.has('description') }" id="inputExperience" placeholder="Location Description"></textarea>
+                    <has-error :form="form" field="description"></has-error>
                     </div>
                 </div>
                 
@@ -104,6 +103,8 @@
                 form: new Form({
                     id : '',
                     name : '',
+                    slug : '',
+                    description: '',
                 })
             }
         },

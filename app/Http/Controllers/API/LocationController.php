@@ -29,9 +29,13 @@ class LocationController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:191',
+            'slug' => 'required|string|max:191',
+            'description' => 'required',
         ]);
         return Location::create([
             'name' => $request['name'],
+            'slug' => $request['slug'],
+            'description' => $request['description'],
         ]);
     }
 
