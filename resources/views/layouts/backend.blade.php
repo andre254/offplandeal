@@ -61,15 +61,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-        {{-- <img src="img/profile/{{Auth::user()->photo}}" class="img-circle elevation-2" alt="User Image"> --}}
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-        </div>
-      </div>
-
+     
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -83,18 +75,9 @@
             </router-link>
           </li>
 
-          <li class="nav-item">
-            <router-link to="/profile" class="nav-link">
-              <i class="nav-icon fas fa-user yellow"></i>
-              <p>
-                Profile
-              </p>
-            </router-link>
-          </li>
-
           <li class="nav-item has-treeview">
             <aside href="#" class="nav-link">
-              <i class="nav-icon fas fa-users-cog green"></i>
+              <i class="nav-icon fas fa-users-cog teal"></i>
               <p>
                 Users Management
                 <i class="right fa fa-angle-left"></i>
@@ -103,38 +86,144 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <router-link to="/users" class="nav-link">
-                  <i class="fas fa-users green"></i>
+                  <i class="fas fa-users teal"></i>
                   <p>Users</p>
                 </router-link>
               </li>
             </ul>
           </li>
- 
+
           <li class="nav-item has-treeview">
-            <aside href="#" class="nav-link">
-              <i class="nav-icon fas fa-book purple"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-bookmark indigo"></i>
               <p>
-                Blog
+                Property Details
                 <i class="right fa fa-angle-left"></i>
               </p>
-            </aside>
+            </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <router-link to="/blog" class="nav-link">
-                  <i class="fas fa-book purple"></i>
-                  <p>Blogs</p>
+                <router-link to="/locations" class="nav-link">
+                  <i class="fas fa-map-marked indigo"></i>
+                  <p>Location</p>
                 </router-link>
               </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fas fa-shapes indigo"></i>
+                  <p>Developer</p>
+                </a>
+              </li>
             </ul>
+          </li>
 
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-home green"></i>
+              <p>
+                Properties
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <router-link to="/blog/new" class="nav-link">
-                  <i class="fas fa-pencil-alt purple"></i>
-                  <p>Add Blog</p>
-                </router-link>
+                <a href="#" class="nav-link">
+                  <i class="fas fa-list-ol green"></i>
+                  <p>Listings</p>
+                </a>
               </li>
             </ul>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-archway green"></i>
+              <p>
+                Communities
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                <i class="fas fa-landmark green"></i>
+                  <p>Community</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-folder-open indigo"></i>
+              <p>
+                File Manager
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-image indigo"></i>
+                  <p>Gallery</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-images indigo"></i>
+                  <p>Collection</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-folder indigo"></i>
+                  <p>Files</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-file-word yellow"></i>
+              <p>
+                Blog
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-globe cyan"></i>
+              <p>
+                Website Data
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Inquiries</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p>Testimonials</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+ 
+          <li class="nav-item">
+            <router-link to="/profile" class="nav-link">
+              <i class="nav-icon fas fa-user yellow"></i>
+              <p>
+                {{ Auth::user()->name }}
+              </p>
+            </router-link>
           </li>
 
           @can('isAdmin')
@@ -147,6 +236,7 @@
             </router-link>
           </li>
           @endcan
+
 
           <li class="nav-item">
             <a href="{{ route('logout') }}" onclick="event.preventDefault();

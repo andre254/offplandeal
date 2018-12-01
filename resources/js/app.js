@@ -33,7 +33,13 @@ Vue.component(AlertError.name, AlertError)
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
-// import vue modules
+
+// import tags
+import VueTags from 'vue-tags'
+//Vue.use(VueTags);
+Vue.component('input-tags', VueTags);
+
+// import tinymce
 import tinymce from '@tinymce/tinymce-vue'
 Vue.component('tinymce', tinymce)
 
@@ -59,6 +65,10 @@ let routes = [
     {
         path: '/users',
         component: require('./components/Users.vue')
+    },
+    {
+        path: '/locations',
+        component: require('./components/Location.vue')
     },
     {
         path: '/developer',

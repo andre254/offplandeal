@@ -85,6 +85,24 @@
                                 </div>
                             </div>
 
+                             <input-tags v-model="form.tags">
+                                    <div class="tags-input"
+                                        slot-scope="{tag,removeTag,inputEventHandlers,inputBindings }">
+                                        <span class="tags-input-tag">
+                                        <span> Tags </span>
+                                        <button type="button" class="tags-input-remove"
+                                            v-on:click="removeTag(tag)"
+                                        >×
+                                        </button>
+                                        </span>
+                                        <input
+                                        class="tags-input-text"  placeholder="Add tag..."
+                                        v-on="inputEventHandlers"
+                                        v-bind="inputBindings"
+                                        >
+                                    </div>
+                            </input-tags>
+
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                 <button @click.prevent="updateInfo" type="submit" class="btn btn-success">Post <i class="fas fa-plus fa-fw"></i></button>
