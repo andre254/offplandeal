@@ -8,4 +8,8 @@ use Laravel\Passport\HasApiTokens;
 class Location extends Model
 {
     use HasApiTokens;
+
+    protected $fillable = [
+        'name'
+    ];
 }

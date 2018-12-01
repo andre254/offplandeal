@@ -15,15 +15,17 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                        <th>ID</th>
                         <th>Location Name</th>
+                        <th>Slug</th>
+                        <th>Description</th>
                         <th>Modify</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr v-for="location in locations" :key="location.id">
-                            <td>{{ location.id }}</td>
                             <td>{{ location.name }}</td>
+                            <td>to be added</td>
+                            <td>{{location.description}}</td>
                             <td>
                                 <a href="#" @click="editModal(location)"><i class="fa fa-edit blue"></i> Edit</a> / 
                                 <a href="#" @click="deleteLocation(location.id)"><i class="fa fa-trash red"></i> Delete</a>
@@ -59,6 +61,27 @@
                         <has-error :form="form" field="name"></has-error>
                     </div>
                 </div>
+
+                <div class="modal-body"> 
+                    <div class="form-group">
+                        <label>Slug</label>
+                        <input v-model="form.name" type="text" name="slug"
+                            placeholder="Downtown Dubai"
+                            class="form-control" :class="{ 'is-invalid': form.errors.has('slug') }">
+                        <has-error :form="form" field="slug"></has-error>
+                    </div>
+                </div>
+
+                <div class="modal-body"> 
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input v-model="form.description" type="text" name="description"
+                            placeholder="Downtown Dubai"
+                            class="form-control" :class="{ 'is-invalid': form.errors.has('description') }">
+                        <has-error :form="form" field="description"></has-error>
+                    </div>
+                </div>
+                
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                         <button type="submit" v-show="editmode" class="btn btn-success">Update <i class="fas fa-user-plus fa-fw"></i></button>
