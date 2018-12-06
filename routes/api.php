@@ -23,3 +23,4 @@ Route::get('profile', 'API\UserController@profile');
 Route::put('profile', 'API\UserController@updateProfile');
 Route::apiResources([ 'blog' => 'API\BlogController']);
 Route::apiResources([ 'location' => 'API\LocationController']);
+Route::apiResources([ 'developer' => 'API\DeveloperController']);

@@ -30924,7 +30924,7 @@ var routes = [{
     path: '/locations',
     component: __webpack_require__(191)
 }, {
-    path: '/developer',
+    path: '/developers',
     component: __webpack_require__(194)
 }, {
     path: '/blog',
@@ -30947,6 +30947,16 @@ Vue.filter('upText', function (text) {
 Vue.filter('myDate', function (created) {
     return __WEBPACK_IMPORTED_MODULE_0_moment___default()(created).format('MMMM Do YYYY');
 });
+
+var filter = function filter(text, length, clamp) {
+    clamp = clamp || '...';
+    var node = document.createElement('div');
+    node.innerHTML = text;
+    var content = node.textContent;
+    return content.length > length ? content.slice(0, length) + clamp : content;
+};
+
+Vue.filter('truncate', filter);
 
 Vue.filter('slugify', function (value) {
     value = value.replace(/^\s+|\s+$/g, ''); // trim
@@ -73922,6 +73932,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -73935,6 +73947,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 description: ''
             })
         };
+    },
+
+
+    watch: {
+        'form.name': function formName() {
+            this.form.slug = this.$options.filters.slugify(this.form.name);
+        }
     },
 
     methods: {
@@ -73998,7 +74017,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$Progress.start();
 
-            this.form.post('api/location').then(function () {
+            this.form.post('api/location')
+            //this.form.slug = this.$options.filters.slugify(this.form.name)
+            .then(function () {
                 Fire.$emit('AfterCreate');
                 $('#addNew').modal('hide');
 
@@ -74060,9 +74081,15 @@ var render = function() {
                   return _c("tr", { key: location.id }, [
                     _c("td", [_vm._v(_vm._s(location.name))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v("to be added")]),
+                    _c("td", [_vm._v(_vm._s(location.slug))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(location.description))]),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(
+                          _vm._f("truncate")(location.description, 20, "...")
+                        )
+                      )
+                    ]),
                     _vm._v(" "),
                     _c("td", [
                       _c(
@@ -74080,7 +74107,7 @@ var render = function() {
                           _vm._v(" Edit")
                         ]
                       ),
-                      _vm._v(" / \n                            "),
+                      _vm._v(" | \n                            "),
                       _c(
                         "a",
                         {
@@ -74226,18 +74253,6 @@ var render = function() {
                         _c("label", [_vm._v("Slug")]),
                         _vm._v(" "),
                         _c("input", {
-                          staticClass: "form-control",
-                          class: { "is-invalid": _vm.form.errors.has("slug") },
-                          attrs: {
-                            type: "text",
-                            name: "slug",
-                            placeholder: "downtown-dubai",
-                            readonly: ""
-                          },
-                          domProps: { value: _vm._f("slugify")(_vm.form.name) }
-                        }),
-                        _vm._v(" "),
-                        _c("input", {
                           directives: [
                             {
                               name: "model",
@@ -74246,7 +74261,13 @@ var render = function() {
                               expression: "form.slug"
                             }
                           ],
-                          attrs: { type: "hidden", name: "slug" },
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("slug") },
+                          attrs: {
+                            type: "text",
+                            name: "slug",
+                            placeholder: "downtown-dubai"
+                          },
                           domProps: { value: _vm.form.slug },
                           on: {
                             input: function($event) {
@@ -74294,6 +74315,7 @@ var render = function() {
                             "is-invalid": _vm.form.errors.has("description")
                           },
                           attrs: {
+                            rows: "20",
                             name: "description",
                             id: "inputExperience",
                             placeholder: "Location Description"
@@ -74489,10 +74511,245 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+    data: function data() {
+        return {
+            editmode: false,
+            developers: {},
+            form: new Form({
+                id: '',
+                name: '',
+                slug: '',
+                desc: '',
+                logo: ''
+            })
+        };
+    },
+
+
+    watch: {
+        'form.name': function formName() {
+            this.form.slug = this.$options.filters.slugify(this.form.name);
+        }
+    },
+
+    methods: {
+        getDeveloperLogo: function getDeveloperLogo() {
+            var logo = this.form.logo.length > 100 ? this.form.logo : "img/developer/" + this.form.logo;
+            return logo;
+            //return "img/profile/"+ this.form.photo;
+        },
+        updateLogo: function updateLogo(e) {
+            var _this = this;
+
+            //console.log('uploading..') this is an event listener to see if the function will run
+            var file = e.target.files[0];
+            // console.log(file);
+            var reader = new FileReader();
+            if (file['size'] < 2111775) {
+                reader.onloadend = function (file) {
+                    // console.log('RESULT', reader.result)
+                    _this.form.logo = reader.result;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                swal({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Your file size should be less than 2MB!'
+                });
+            }
+            Fire.$emit('AfterCreate');
+        },
+        updateDeveloper: function updateDeveloper(id) {
+            var _this2 = this;
+
+            this.$Progress.start();
+
+            this.form.put('api/developer/' + this.form.id).then(function () {
+                //success
+                $('#addNew').modal('hide');
+                swal('Updated!', 'The developer information has been updated.', 'success');
+                _this2.$Progress.finish();
+                Fire.$emit('AfterCreate');
+            }).catch(function () {
+                _this2.$Progress.fail();
+            });
+        },
+        newModal: function newModal() {
+            this.editmode = false, this.form.reset();
+            $('#addNew').modal('show');
+        },
+        editModal: function editModal(developer) {
+            this.editmode = true, this.form.reset();
+            $('#addNew').modal('show');
+            this.form.fill(developer);
+        },
+        deleteDeveloper: function deleteDeveloper(id) {
+            var _this3 = this;
+
+            swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then(function (result) {
+                //send request to the server
+                if (result.value) {
+                    _this3.form.delete('api/developer/' + id).then(function () {
+                        swal('Deleted!', 'The developer has been deleted.', 'success');
+                        Fire.$emit('AfterCreate');
+                    }).catch(function () {
+                        swal("failed!", "Oops, something is not right!", "warning");
+                    });
+                }
+            });
+        },
+        loadDevelopers: function loadDevelopers() {
+            var _this4 = this;
+
+            axios.get("api/developer").then(function (_ref) {
+                var data = _ref.data;
+                return _this4.developers = data.data;
+            });
+        },
+        createDeveloper: function createDeveloper() {
+            var _this5 = this;
+
+            this.$Progress.start();
+
+            this.form.post('api/developer')
+            //this.form.slug = this.$options.filters.slugify(this.form.name)
+            .then(function () {
+                Fire.$emit('AfterCreate');
+                $('#addNew').modal('hide');
+
+                toast({
+                    type: 'success',
+                    title: 'Developer created successfully'
+                });
+
+                _this5.$Progress.finish();
+            }).catch(function () {});
+        }
+    },
+    created: function created() {
+        var _this6 = this;
+
+        this.loadDevelopers();
+        //this is for refreshing the page after every 3 secs
+        // setInterval( () => this.loadDevelopers(), 3000);
+        Fire.$on('AfterCreate', function () {
+            _this6.loadDevelopers();
+        });
     }
 });
 
@@ -74505,23 +74762,425 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-12" },
-        [
-          _c("passport-clients"),
+    _c("div", { staticClass: "row mt-3" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card card-primary card-outline" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _c("h3", { staticClass: "card-title" }, [
+              _vm._v("Developers List")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-tools" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-success", on: { click: _vm.newModal } },
+                [
+                  _vm._v("Add New "),
+                  _c("i", { staticClass: "fas fa-user-plus fa-fw" })
+                ]
+              )
+            ])
+          ]),
           _vm._v(" "),
-          _c("passport-authorized-clients"),
-          _vm._v(" "),
-          _c("passport-personal-access-tokens")
-        ],
-        1
-      )
-    ])
+          _c("div", { staticClass: "card-body table-responsive p-0" }, [
+            _c("table", { staticClass: "table table-hover" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.developers, function(developer) {
+                  return _c("tr", { key: developer.id }, [
+                    _c("td", [_vm._v(_vm._s(developer.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(developer.slug))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(
+                          _vm._f("truncate")(developer.description, 20, "...")
+                        )
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(developer.logo))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              _vm.editModal(developer)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-edit blue" }),
+                          _vm._v(" Edit")
+                        ]
+                      ),
+                      _vm._v(" | \n                            "),
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              _vm.deleteDeveloper(developer.id)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "fa fa-trash red" }),
+                          _vm._v(" Delete")
+                        ]
+                      )
+                    ])
+                  ])
+                })
+              )
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "addNew",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "addNewLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog modal-dialog-centered",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.editmode,
+                        expression: "!editmode"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "addNewLabel" }
+                  },
+                  [_vm._v("Add New")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.editmode,
+                        expression: "editmode"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "addNewLabel" }
+                  },
+                  [_vm._v("Update Developer")]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ]),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.editmode
+                        ? _vm.updateDeveloper()
+                        : _vm.createDeveloper()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Developer Name")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.name,
+                              expression: "form.name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("name") },
+                          attrs: {
+                            type: "text",
+                            name: "name",
+                            placeholder: "Emaar"
+                          },
+                          domProps: { value: _vm.form.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "name", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "name" }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Slug")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.slug,
+                              expression: "form.slug"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("slug") },
+                          attrs: {
+                            type: "text",
+                            name: "slug",
+                            placeholder: "downtown-dubai"
+                          },
+                          domProps: { value: _vm.form.slug },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "slug", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "slug" }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-sm-12 control-label",
+                        attrs: { for: "photo" }
+                      },
+                      [_vm._v("Developer Logo")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-12" }, [
+                      _c("input", {
+                        staticClass: "form-input",
+                        attrs: { type: "file", name: "logo" },
+                        on: { change: _vm.updateLogo }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card card-primary card-outline" }, [
+                    _c("div", { staticClass: "card-body box-profile" }, [
+                      _c("div", { staticClass: "text-center" }, [
+                        _c("img", {
+                          staticClass: "profile-user-img img-fluid img-circle",
+                          attrs: {
+                            src: _vm.getDeveloperLogo(),
+                            alt: "user avatar"
+                          }
+                        })
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-sm-12 control-label",
+                        attrs: { for: "inputExperience" }
+                      },
+                      [_vm._v("Description")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-sm-12" },
+                      [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.desc,
+                              expression: "form.desc"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("desc") },
+                          attrs: {
+                            rows: "20",
+                            name: "desc",
+                            id: "inputExperience",
+                            placeholder: "Developer Description"
+                          },
+                          domProps: { value: _vm.form.desc },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "desc", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "desc" }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Close")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editmode,
+                            expression: "editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-success",
+                        attrs: { type: "submit" }
+                      },
+                      [
+                        _vm._v("Update "),
+                        _c("i", { staticClass: "fas fa-user-plus fa-fw" })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editmode,
+                            expression: "!editmode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [
+                        _vm._v("Create "),
+                        _c("i", { staticClass: "fas fa-user-plus fa-fw" })
+                      ]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Developer Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Slug")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Logo")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Modify")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

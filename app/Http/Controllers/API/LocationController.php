@@ -63,10 +63,14 @@ class LocationController extends Controller
 
         $this->validate($request, [
             'name' => 'required|string|max:191',
+            'slug' => 'required|string|max:191|unique:locations,slug,'.$location->id,
+            'description' => 'required|string',
         ]);
 
         $location->update([
             'name'=>$request['name'],
+            'slug'=>$request['slug'],
+            'description'=>$request['description'],
             ]);
 
         //return $id;

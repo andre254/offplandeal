@@ -24,11 +24,12 @@
                         <tbody>
                         <tr v-for="location in locations" :key="location.id">
                             <td>{{ location.name }}</td>
-                            <td>to be added</td>
-                            <td>{{location.description}}</td>
+                            <td>{{ location.slug }}</td>
+                            <td>{{location.description | truncate(20, '...')}}</td>
                             <td>
-                                <a href="#" @click="editModal(location)"><i class="fa fa-edit blue"></i> Edit</a> / 
+                                <a href="#" @click="editModal(location)"><i class="fa fa-edit blue"></i> Edit</a> | 
                                 <a href="#" @click="deleteLocation(location.id)"><i class="fa fa-trash red"></i> Delete</a>
+                                <!-- <a href="#" @click="viewLocation(location.id)"><i class="fa fa-eye green"></i> View</a> -->
                             </td>
                         </tr>
                         </tbody>
@@ -61,16 +62,17 @@
                         <has-error :form="form" field="name"></has-error>
                     </div>
                 </div>
+               
+                 <!-- <p>{{ form.name | slugify }}</p> -->
 
                 
 
                 <div class="modal-body"> 
                     <div class="form-group">
                         <label>Slug</label>
-                        <input type="text" name="slug" :value="form.name | slugify"
+                        <input v-model="form.slug" type="text" name="slug" 
                             placeholder="downtown-dubai" 
-                            class="form-control" :class="{ 'is-invalid': form.errors.has('slug') }" readonly>
-                        <input v-model="form.slug" type="hidden" name="slug">
+                            class="form-control" :class="{ 'is-invalid': form.errors.has('slug') }">
                         <has-error :form="form" field="slug"></has-error>
                     </div>
                 </div>
@@ -78,7 +80,7 @@
                 <div class="form-group">
                     <label for="inputExperience" class="col-sm-12 control-label">Description</label>
                     <div class="col-sm-12">
-                    <textarea class="form-control" v-model="form.description" name="description" :class="{ 'is-invalid': form.errors.has('description') }" id="inputExperience" placeholder="Location Description"></textarea>
+                    <textarea class="form-control" rows="20" v-model="form.description" name="description" :class="{ 'is-invalid': form.errors.has('description') }" id="inputExperience" placeholder="Location Description"></textarea>
                     <has-error :form="form" field="description"></has-error>
                     </div>
                 </div>
@@ -110,6 +112,14 @@
                 })
             }
         },
+        
+
+         watch: {
+                'form.name'() {
+                    this.form.slug = this.$options.filters.slugify(this.form.name)
+                },
+            },
+
         methods: {
             updateLocation(id) {
                 this.$Progress.start();
@@ -144,6 +154,7 @@
                 $('#addNew').modal('show')
                 this.form.fill(location)
             },
+
             deleteLocation(id){
                 swal({
                     title: 'Are you sure?',
@@ -176,10 +187,13 @@
                 axios.get("api/location").then(({ data }) => (this.locations = data.data));
             },
 
+           
+
             createLocation() {
                 this.$Progress.start();
-
+                
                 this.form.post('api/location')
+                //this.form.slug = this.$options.filters.slugify(this.form.name)
                 .then(() => {
                 Fire.$emit('AfterCreate');
                 $('#addNew').modal('hide')

@@ -109,10 +109,10 @@
                 </router-link>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <router-link to="/developers" class="nav-link">
                   <i class="fas fa-shapes indigo"></i>
                   <p>Developer</p>
-                </a>
+                </router-link>
               </li>
             </ul>
           </li>
@@ -226,7 +226,7 @@
             </router-link>
           </li>
 
-          @can('isAdmin')
+          {{-- @can('isAdmin')
           <li class="nav-item">
             <router-link to="/developer" class="nav-link">
               <i class="nav-icon fas fa-cogs red"></i>
@@ -235,7 +235,7 @@
               </p>
             </router-link>
           </li>
-          @endcan
+          @endcan --}}
 
 
           <li class="nav-item">

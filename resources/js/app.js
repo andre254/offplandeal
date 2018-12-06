@@ -71,7 +71,7 @@ let routes = [
         component: require('./components/Location.vue')
     },
     {
-        path: '/developer',
+        path: '/developers',
         component: require('./components/Developer.vue')
     },
     {
@@ -97,6 +97,16 @@ Vue.filter('upText', function(text) {
 Vue.filter('myDate', function(created) {
     return moment(created).format('MMMM Do YYYY');
 })
+
+var filter = function(text, length, clamp){
+    clamp = clamp || '...';
+    var node = document.createElement('div');
+    node.innerHTML = text;
+    var content = node.textContent;
+    return content.length > length ? content.slice(0, length) + clamp : content;
+};
+
+Vue.filter('truncate', filter);
 
 
 Vue.filter('slugify', function(value) {
@@ -165,3 +175,4 @@ const app = new Vue({
     el: '#app',
     router
 });
+
