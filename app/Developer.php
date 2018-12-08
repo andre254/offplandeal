@@ -10,6 +10,6 @@ class Developer extends Model
     use HasApiTokens;
 
     protected $fillable = [
-        'name','description','slug','logo',
+        'name','desc','slug','logo',
     ];
 }

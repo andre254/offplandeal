@@ -20,7 +20,7 @@ class DeveloperController extends Controller
 
     public function index()
     {
-        //
+        return Developer::latest()->paginate(15);
     }
 
     /**
@@ -31,7 +31,31 @@ class DeveloperController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|max:191|unique:developers',
+            'slug' => 'required|string|max:191',
+            'desc' => 'required|string',
+            'logo' => 'required|string',
+        ]);
+
+
+        if ($request->logo) {
+            $name = time().'.' . explode('/', explode(':', substr($request->logo, 0, strpos
+            ($request->logo, ';')))[1])[1];
+
+            \Image::make($request->logo)->save(public_path('img/developer/').$name);
+
+            $request->merge(['logo' => $name]);
+
+        }
+
+
+        return Developer::create([
+            'name' => $request['name'],
+            'slug' => $request['slug'],
+            'desc' => $request['desc'],
+            'logo' => $request['logo'],
+        ]);
     }
 
     /**

@@ -26,8 +26,9 @@
                         <tr v-for="developer in developers" :key="developer.id">
                             <td>{{ developer.name }}</td>
                             <td>{{ developer.slug }}</td>
-                            <td>{{developer.description | truncate(20, '...')}}</td>
-                            <td>{{developer.logo}}</td>
+                            <td>{{developer.desc | truncate(20, '...')}}</td>
+                            <td><img :src="'{{ asset('/img/developer/') }}/' + developer.logo" width="150px"></td>
+                            
                             <td>
                                 <a href="#" @click="editModal(developer)"><i class="fa fa-edit blue"></i> Edit</a> | 
                                 <a href="#" @click="deleteDeveloper(developer.id)"><i class="fa fa-trash red"></i> Delete</a>
@@ -85,7 +86,7 @@
                 <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
                     <div class="text-center">
-                    <img class="profile-user-img img-fluid img-circle"
+                    <img class="card-img-top"
                         :src="getDeveloperLogo()"
                         alt="user avatar">
                     </div>

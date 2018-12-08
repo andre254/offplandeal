@@ -74615,6 +74615,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -74796,13 +74797,20 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
-                        _vm._s(
-                          _vm._f("truncate")(developer.description, 20, "...")
-                        )
+                        _vm._s(_vm._f("truncate")(developer.desc, 20, "..."))
                       )
                     ]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(developer.logo))]),
+                    _c("td", [
+                      _c("img", {
+                        attrs: {
+                          src:
+                            "{{ asset(" / _vm.img / developer / ") }}/" +
+                            developer.logo,
+                          width: "150px"
+                        }
+                      })
+                    ]),
                     _vm._v(" "),
                     _c("td", [
                       _c(
@@ -75025,7 +75033,7 @@ var render = function() {
                     _c("div", { staticClass: "card-body box-profile" }, [
                       _c("div", { staticClass: "text-center" }, [
                         _c("img", {
-                          staticClass: "profile-user-img img-fluid img-circle",
+                          staticClass: "card-img-top",
                           attrs: {
                             src: _vm.getDeveloperLogo(),
                             alt: "user avatar"
